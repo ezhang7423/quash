@@ -1,6 +1,7 @@
 #include "dn.cpp"
 #include "quash.cpp"
-
+#include <iostream>
+#include <string>
 void Quash::updateIndex(int val, int newIndex)
 {
     dnode *pot = find(val);
@@ -110,7 +111,17 @@ void Quash::insert(int item)
     }
     pot->set_value(pot->val() + 1);
 }
-
+void Quash::lookup(int item)
+{
+    dnode *act = find(item);
+    if (act == 0)
+    {
+        std::cout << "something" << std::endl;
+        return;
+    }
+    std::cout << "something" << std::endl;
+    return;
+}
 dnode *Quash::find(int val)
 {
     int index = val % 43;
