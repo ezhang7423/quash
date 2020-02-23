@@ -148,13 +148,16 @@ void Quash::delet(int i, bool wasMin)
         }
         return;
     }
-    if (a->val() == 1)
+    if (a->ct() == 1)
     {
         int index = a->ind();
         if (find(i) == this->ht[i % 43]) // if node is head
         {
-            this->ht[i % 43] = a->nextt();
-            a->nextt()->set_linkb(0);
+            if (a->nextt())
+            {
+                this->ht[i % 43] = a->nextt();
+                a->nextt()->set_linkb(0);
+            }
         }
         else // if node is not head
         {
@@ -162,9 +165,15 @@ void Quash::delet(int i, bool wasMin)
             if (a->nextt() != 0)
                 a->nextt()->set_linkb(a->prev());
         }
-        delete a;
-        heapify(this, this->bT(), 0, length);
+        delete a; //deletes from hash table
+        int toDel = a->ind();
+        this->bt[toDel] = this->bt[length - 1];
+        heapify(this, this->bT(), toDel, length);
         length--;
+        if (length == 1){
+            this->bt[1] = 0;
+        }
+        //deletes from minheap
         if (wasMin)
         {
             std::cout << "min item x successfully deleted" << std::endl;
