@@ -1,24 +1,49 @@
 #include "dn.cpp"
 #include "quash.cpp"
 
-void Quash::insert(int item)
+void Quash::updateIndex(int val, int newIndex)
 {
+    dnode *pot = find(val);
+    pot->set_index(newIndex);
 }
-
-namespace mh
+void heapify(Quash *q, int *arr, int wrongVal, int length)
 {
-
-void heapify(int *arr)
-{
+    int wV = arr[wrongVal];
+    int lC = arr[wrongVal * 2];
+    int rC = arr[wrongVal * 2 + 1];
+    int tmp = 0;
+    while ((wV > lC || wV > rC) && (wrongVal < length / 2))
+    {
+        if (lC > rC)
+        {
+            tmp = wV;
+            arr[wrongVal] = rC;
+            q->updateIndex(rC, wrongVal);
+            arr[wrongVal * 2 + 1] = tmp;
+            q->updateIndex(tmp, wrongVal * 2 + 1);
+            wrongVal = wrongVal * 2 + 1;
+        }
+        else
+        {
+            tmp = wV;
+            arr[wrongVal] = lC;
+            q->updateIndex(lC, wrongVal);
+            arr[wrongVal * 2] = tmp;
+            q->updateIndex(tmp, wrongVal * 2);
+            wrongVal = wrongVal * 2;
+        }
+        wV = arr[wrongVal];
+        lC = arr[wrongVal * 2];
+        rC = arr[wrongVal * 2 + 1];
+    }
 }
 void minsert(Quash *q, int val)
 {
-    q->bT()[q->len()] = val;
-    heapify(q->bT());
-    q->set_len(q->len() + 1);
+    q->bt[q->length] = q->bt[0];
+    q->bt[0] = val;
+    heapify(q, q->bT(), 0, q->length);
+    q->length++;
 }
-
-} // namespace mh
 
 namespace dn
 {
@@ -28,7 +53,7 @@ void insert(int item, dnode *&head)
     {
         dnode *newItem = new dnode(item, 0, 0, 0);
         head = newItem;
-        mh::minsert(item);
+
         return;
     }
     // print_ll(head);
@@ -56,6 +81,18 @@ dnode *find(int name, dnode *pot)
     return 0;
 }
 } // namespace dn
+
+void Quash::insert(int item)
+{
+    dnode *pot = find(item);
+    if (pot == 0)
+    {
+        dn::insert(item, this->ht[item % 43]);
+        minsert(this, item);
+        return;
+    }
+    pot->set_value(pot->val() + 1);
+}
 
 dnode *Quash::find(int val)
 {

@@ -20,7 +20,7 @@ public:
         previous = past;
     }
     // mutators
-    void set_value(const int item) { value = item; }
+    void set_index(const int item) { index = item; }
     void set_link(dnode *link) { next = link; }
     void set_linkb(dnode *link) { previous = link; }
 
