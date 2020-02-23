@@ -188,7 +188,7 @@ void Quash::delet(int i, bool wasMin)
     a->set_count(a->ct() - 1);
     if (wasMin)
     {
-        std::cout << "min item = x, count decremented, new count = " << a->ct() << std::endl;
+        std::cout << "min item = " << a->val() << ", count decremented, new count = " << a->ct() << std::endl;
     }
     else
     {
