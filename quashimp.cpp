@@ -5,6 +5,7 @@
 void Quash::updateIndex(int val, int newIndex)
 {
     dnode *pot = find(val);
+    if (!pot) return;
     pot->set_index(newIndex);
 }
 void heapify(Quash *q, int *arr, int wrongVal, int length)
@@ -52,7 +53,7 @@ void pup(Quash *q, int *arr, int length)
         arr[length] = p;
         q->updateIndex(p, length);
         length = length / 2;
-        if (length == 0)
+        if (length <= 1)
         {
             return;
         }
@@ -129,7 +130,7 @@ void Quash::lookup(int item)
 
 void Quash::deleteMin()
 {
-    int v = bt[0];
+    int v = bt[1];
     delet(v, true);
 }
 
@@ -176,7 +177,7 @@ void Quash::delet(int i, bool wasMin)
         //deletes from minheap
         if (wasMin)
         {
-            std::cout << "min item x successfully deleted" << std::endl;
+            std::cout << "min item " << i << " successfully deleted" << std::endl;
         }
         else
         {
