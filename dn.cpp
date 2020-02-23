@@ -38,4 +38,13 @@ public:
     //  TWO FUNCTIONS TO RETRIEVE THE LINK
     dnode *nextt() { return next; }
     dnode *prev() { return previous; }
+    ~dnode(){
+            index = 0;
+     count = 0;
+     value = 0;
+    // forward pointer
+    next  = 0;
+    // backward pointer
+    previous = 0;
+    }
 };

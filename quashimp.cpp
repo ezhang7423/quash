@@ -165,8 +165,8 @@ void Quash::delet(int i, bool wasMin)
             if (a->nextt() != 0)
                 a->nextt()->set_linkb(a->prev());
         }
-        delete a; //deletes from hash table
         int toDel = a->ind();
+        delete a; //deletes from hash table
         this->bt[toDel] = this->bt[length - 1];
         heapify(this, this->bT(), toDel, length);
         length--;
