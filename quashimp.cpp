@@ -114,7 +114,7 @@ void Quash::insert(int item)
         return;
     }
     pot->set_count(pot->ct() + 1);
-    std::cout << "item already present, new count = " << pot->ct() << std::endl;
+    std::cout << "item successfully inserted, count = " << pot->ct() << std::endl;
 }
 void Quash::lookup(int item)
 {
