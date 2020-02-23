@@ -3,6 +3,10 @@
 class Quash
 {
 public:
+    Quash()
+    {
+        length = 1;
+    }
     void insert(int i);
     void lookup(int i);
     void deleteMin();

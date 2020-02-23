@@ -37,11 +37,34 @@ void heapify(Quash *q, int *arr, int wrongVal, int length)
         rC = arr[wrongVal * 2 + 1];
     }
 }
+
+//percolate up
+void pup(Quash *q, int *arr, int length)
+{
+    int wV = arr[length];
+    int pI = length / 2;
+    int p = arr[pI];
+    while (wV < p)
+    {
+        arr[pI] = wV;
+        q->updateIndex(wV, pI);
+        arr[length] = p;
+        q->updateIndex(p, length);
+        length = length / 2;
+        if (length == 0)
+        {
+            return;
+        }
+        wV = arr[length];
+        pI = length / 2;
+        p = arr[pI];
+    }
+    return;
+}
 void minsert(Quash *q, int val)
 {
-    q->bt[q->length] = q->bt[0];
-    q->bt[0] = val;
-    heapify(q, q->bT(), 0, q->length);
+    q->bt[q->length] = val;
+    pup(q, q->bT(), q->length);
     q->length++;
 }
 
