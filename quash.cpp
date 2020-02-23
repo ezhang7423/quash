@@ -6,6 +6,14 @@ public:
     Quash()
     {
         length = 1;
+        for (int i = 0; i < 10000; i++)
+        {
+            bt[i] = 0;
+        }
+        for (int i = 0; i < 43; i++)
+        {
+            ht[i] = 0;
+        }
     }
     void insert(int i);
     void lookup(int i);

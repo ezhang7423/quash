@@ -7,7 +7,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     //     string s = "insert 10, insert -50, insert 76, lookup 12, insert 12, lookup 12, insert 12, lookup 12, print, deleteMin, \
-// delete -50, print, delete 10, print, deleteMin, print, delete 12, deleteMin, print, deleteMin";
+        // delete -50, print, delete 10, print, deleteMin, print, delete 12, deleteMin, print, deleteMin";
     //     string in;
     //     stringstream ss;
     //     stringstream bb;
@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     //     cout << in << endl;
     //     bb << in;
     //     cout << bb.str() << endl;
+    //
     stringstream init(argv[1]);
     stringstream atomicUnit;
     string in, keyw, karg;
@@ -28,12 +29,12 @@ int main(int argc, char *argv[])
         atomicUnit.clear();
         if (keyw == "insert")
         {
-            arg = atoi(karg);
+            arg = stoi(karg);
             q.insert(arg);
         }
         else if (keyw == "lookup")
         {
-            arg = atoi(karg);
+            arg = stoi(karg);
             q.lookup(arg);
         }
         else if (keyw == "print")
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
         }
         else if (keyw == "delete")
         {
-            arg = atoi(karg);
+            arg = stoi(karg);
             q.delet(arg, false);
         }
     }

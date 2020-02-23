@@ -90,6 +90,7 @@ dnode *find(int name, dnode *pot)
 {
     for (dnode *i = pot; i != nullptr; i = i->nextt())
     {
+        // std::cout << i->val() << std::endl;
         if (name == i->val())
         {
             return i;
@@ -107,11 +108,12 @@ void Quash::insert(int item)
     {
         dn::insert(item, this->ht[item % 43]);
         minsert(this, item);
-        std::cout << "item successfully inserted, count = " << pot->val() << std::endl;
+        pot = find(item);
+        std::cout << "item successfully inserted, count = " << pot->ct() << std::endl;
         return;
     }
     pot->set_count(pot->ct() + 1);
-    std::cout << "item already present, new count = " << pot->val() << std::endl;
+    std::cout << "item already present, new count = " << pot->ct() << std::endl;
 }
 void Quash::lookup(int item)
 {
@@ -186,10 +188,11 @@ void Quash::delet(int i, bool wasMin)
 }
 void Quash::print()
 {
-    for (int i = 0; i < length; i++)
+    for (int i = 1; i < length; i++)
     {
-        std::cout << bt[i] << std::endl;
+        std::cout << bt[i] << " ";
     }
+    std::cout << std::endl;
     return;
 }
 dnode *Quash::find(int val)
