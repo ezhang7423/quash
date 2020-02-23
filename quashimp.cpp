@@ -75,11 +75,11 @@ void insert(int item, dnode *&head)
 {
     if (head == nullptr)
     {
-        dnode *newItem = new dnode(item, 0, 0, 0);
+        dnode *newItem = new dnode(item, 0, 1, 0, 0);
         head = newItem;
         return;
     }
-    dnode *newItem = new dnode(item, 0, 0, 0);
+    dnode *newItem = new dnode(item, 0, 1, 0, 0);
     newItem->set_link(head);
     head->set_linkb(newItem);
     head = newItem;
@@ -107,49 +107,43 @@ void Quash::insert(int item)
     {
         dn::insert(item, this->ht[item % 43]);
         minsert(this, item);
+        std::cout << "item successfully inserted, count = " << pot->val() << std::endl;
         return;
     }
-    pot->set_value(pot->val() + 1);
+    pot->set_count(pot->ct() + 1);
+    std::cout << "item already present, new count = " << pot->val() << std::endl;
 }
 void Quash::lookup(int item)
 {
     dnode *act = find(item);
     if (act == 0)
     {
-        std::cout << "something" << std::endl;
+        std::cout << "item not found" << std::endl;
         return;
     }
-    std::cout << "something" << std::endl;
+    std::cout << "item found, count = " << act->ct() << std::endl;
     return;
 }
 
 void Quash::deleteMin()
 {
     int v = bt[0];
-    delet(v);
-    // dnode *a = find(v);
-    // if (a == 0)
-    // {
-    //     return;
-    // }
-    // if (a->val() == 1)
-    // {
-    //     delet(a->val());
-    //     bt[0] = bt[length - 1];
-    //     heapify(this, this->bT(), 0, length);
-    //     length--;
-    //     std::cout << "something" << std::endl;
-    //     return;
-    // }
-    // a->set_value(a->val() - 1);
-    // return;
+    delet(v, true);
 }
 
-void Quash::delet(int i)
+void Quash::delet(int i, bool wasMin)
 {
     dnode *a = find(i);
     if (a == 0)
     {
+        if (wasMin)
+        {
+            std::cout << "min item not present since table is empty" << std::endl;
+        }
+        else
+        {
+            std::cout << "item not present in the table" << std::endl;
+        }
         return;
     }
     if (a->val() == 1)
@@ -169,10 +163,25 @@ void Quash::delet(int i)
         delete a;
         heapify(this, this->bT(), 0, length);
         length--;
-        std::cout << "something" << std::endl;
+        if (wasMin)
+        {
+            std::cout << "min item x successfully deleted" << std::endl;
+        }
+        else
+        {
+            std::cout << "item successfully deleted" << std::endl;
+        }
         return;
     }
-    a->set_value(a->val() - 1);
+    a->set_count(a->ct() - 1);
+    if (wasMin)
+    {
+        std::cout << "min item = x, count decremented, new count = " << a->ct() << std::endl;
+    }
+    else
+    {
+        std::cout << "item count decremented, new count = " << a->ct() << std::endl;
+    }
     return;
 }
 void Quash::print()

@@ -10,7 +10,7 @@ public:
     void insert(int i);
     void lookup(int i);
     void deleteMin();
-    void delet(int i);
+    void delet(int i, bool);
     void print();
     void updateIndex(int val, int newIndex);
     friend void minsert(Quash *q, int val);
