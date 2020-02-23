@@ -53,20 +53,13 @@ void insert(int item, dnode *&head)
     {
         dnode *newItem = new dnode(item, 0, 0, 0);
         head = newItem;
-
         return;
     }
-    // print_ll(head);
-
-    for (dnode<Word> *i = head; i != nullptr; i = i->nextt())
-    {
-        if (i->nextt() == nullptr)
-        {
-            dnode<Word> *newItem = new dnode<Word>(item, i, 0);
-            i->set_link(newItem);
-            return;
-        }
-    }
+    dnode *newItem = new dnode(item, 0, 0, 0);
+    newItem->set_link(head);
+    head->set_linkb(newItem);
+    head = newItem;
+    return;
 }
 
 dnode *find(int name, dnode *pot)
@@ -80,6 +73,7 @@ dnode *find(int name, dnode *pot)
     }
     return 0;
 }
+
 } // namespace dn
 
 void Quash::insert(int item)
