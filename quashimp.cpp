@@ -43,6 +43,7 @@ void heapify(Quash *q, int *arr, int wrongVal, int length)
 //percolate up
 void pup(Quash *q, int *arr, int length)
 {
+    if (length != 1){
     int wV = arr[length];
     int pI = length / 2;
     int p = arr[pI];
@@ -60,6 +61,8 @@ void pup(Quash *q, int *arr, int length)
         wV = arr[length];
         pI = length / 2;
         p = arr[pI];
+    }
+    return;
     }
     return;
 }
