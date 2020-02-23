@@ -122,6 +122,67 @@ void Quash::lookup(int item)
     std::cout << "something" << std::endl;
     return;
 }
+
+void Quash::deleteMin()
+{
+    int v = bt[0];
+    delet(v);
+    // dnode *a = find(v);
+    // if (a == 0)
+    // {
+    //     return;
+    // }
+    // if (a->val() == 1)
+    // {
+    //     delet(a->val());
+    //     bt[0] = bt[length - 1];
+    //     heapify(this, this->bT(), 0, length);
+    //     length--;
+    //     std::cout << "something" << std::endl;
+    //     return;
+    // }
+    // a->set_value(a->val() - 1);
+    // return;
+}
+
+void Quash::delet(int i)
+{
+    dnode *a = find(i);
+    if (a == 0)
+    {
+        return;
+    }
+    if (a->val() == 1)
+    {
+        int index = a->ind();
+        if (find(i) == this->ht[i % 43]) // if node is head
+        {
+            this->ht[i % 43] = a->nextt();
+            a->nextt()->set_linkb(0);
+        }
+        else // if node is not head
+        {
+            a->prev()->set_link(a->nextt());
+            if (a->nextt() != 0)
+                a->nextt()->set_linkb(a->prev());
+        }
+        delete a;
+        heapify(this, this->bT(), 0, length);
+        length--;
+        std::cout << "something" << std::endl;
+        return;
+    }
+    a->set_value(a->val() - 1);
+    return;
+}
+void Quash::print()
+{
+    for (int i = 0; i < length; i++)
+    {
+        std::cout << bt[i] << std::endl;
+    }
+    return;
+}
 dnode *Quash::find(int val)
 {
     int index = val % 43;
